@@ -1,5 +1,6 @@
 "use client";
-const { createContext, useContext, useState } = require("react");
+const { createContext, useContext } = require("react");
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { v4 as uuid } from "uuid";
 
 const TaskContext = createContext();
@@ -11,10 +12,7 @@ export const useTasks = () => {
 };
 
 export const TaskProvider = ({ children }) => {
-    const [tasks, setTasks] = useState([
-        { id: "1", title: "Tarea 1", description: "Descripción de la Tarea 1" },
-        { id: "2", title: "Tarea 2", description: "Descripción de la Tarea 2" },
-    ]);
+    const [tasks, setTasks] = useLocalStorage('tasks', [])
 
     const createTask = (title, description) => {
         setTasks([...tasks, { title, description, id: uuid() }]);
