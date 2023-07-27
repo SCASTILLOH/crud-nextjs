@@ -1,8 +1,9 @@
 "use client";
 import { useTasks } from "@/context/TaskContext";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 function Page({ params }) {
   const { tasks, createTask, updateTask } = useTasks();
@@ -12,8 +13,10 @@ function Page({ params }) {
   const onSubmit = (data) => {
     if (params.id) {
       updateTask(params.id, data);
+      toast.success('Updated succesfully')
     } else {
       createTask(data.title, data.description);
+      toast.success('Created succesfully')
     }
     router.push("/");
   };
